@@ -1,9 +1,9 @@
 import mailbox
 import os
+import argparse
 
+import sys
 
-outputdir='C:/work/Mail/Takeout/Mail/out/'
-mboxfile = 'C:/work/Mail/Takeout/Mail/software.mbox'
 def uwritefile(*objects, sep=' ', end='\n', file):
     enc = file.encoding
     if enc == 'UTF-8':
@@ -30,17 +30,17 @@ def handleerror(errmsg, emailmsg,cs):
 
 def getbodyfromemail(msg):
     body = None
-    #Walk through the parts of the email to find the text body.    
-    if msg.is_multipart():    
+    #Walk through the parts of the email to find the text body.
+    if msg.is_multipart():
         for part in msg.walk():
 
-            # If part is multipart, walk through the subparts.            
-            if part.is_multipart(): 
+            # If part is multipart, walk through the subparts.
+            if part.is_multipart():
 
                 for subpart in part.walk():
                     if subpart.get_content_type() == 'text/plain':
                         # Get the subpart payload (i.e the message body)
-                        body = subpart.get_payload(decode=True) 
+                        body = subpart.get_payload(decode=True)
                         #charset = subpart.get_charset()
 
             # Part isn't multipart so get the email body
@@ -50,9 +50,9 @@ def getbodyfromemail(msg):
 
     # If this isn't a multi-part message then get the payload (i.e the message body)
     elif msg.get_content_type() == 'text/plain':
-        body = msg.get_payload(decode=True) 
+        body = msg.get_payload(decode=True)
 
-   # No checking done to match the charset with the correct part. 
+   # No checking done to match the charset with the correct part.
     for charset in getcharsets(msg):
         print(charset)
         try:
@@ -61,7 +61,7 @@ def getbodyfromemail(msg):
             handleerror("UnicodeDecodeError: encountered.",msg,charset)
         except AttributeError:
              handleerror("AttributeError: encountered" ,msg,charset)
-    return body    
+    return body
 
 
 def getcharsetfromemail(msg):
@@ -110,7 +110,7 @@ def extract_mails(mboxfile,outputdir):
 
             #print(i)
             #print(mygetbody(inbox[i]))
-            file = open(outputdir+''+str(i), "wb")
+            file = open(os.path.join(outputdir,str(i)), "wb")
 
             id=inbox[i]['Message-ID']
             if(not(id is None)):
@@ -153,5 +153,24 @@ def extract_mails(mboxfile,outputdir):
             #file.close()
 
 
-extract_mails('C:/work/Mail/Takeout/Mail/red11.mbox','C:/work/Mail/Takeout/Mail/myout2/red11/')
-extract_mails('C:/work/Mail/Takeout/Mail/semeval.mbox','C:/work/Mail/Takeout/Mail/myout2/semeval/')
+
+
+#print ('Number of arguments:', len(sys.argv), 'arguments.')
+#print ('Argument List:', str(sys.argv))
+if(len(sys.argv)<3):
+    print("you need to pass two arguments, one for the mailbox file and another for the output directory")
+    exit()
+else:
+    mboxfile=sys.argv[1]
+    outputdir=sys.argv[2]
+    #print(mboxfile,outputdir)
+
+if(not(os.path.exists(mboxfile))):
+    print('mailbox file doesnt exist')
+    exit()
+else:
+    print('extracting from '+mboxfile+' into '+outputdir)
+    extract_mails(mboxfile,outputdir)
+    #extract_mails('C:/work/Mail/Takeout/Mail/semeval.mbox','C:/work/Mail/Takeout/Mail/myout2/semeval/')
+
+#print(#1)
