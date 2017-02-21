@@ -6,7 +6,8 @@ text file in an output directory
 ## Installation
 
 Download and install Python3 from https://www.python.org/downloads/
-You may need to download and install git as well
+You may need to download and install git as well from this link https://git-scm.com/downloads
+
 
 ## Usage
 
@@ -31,13 +32,7 @@ If you have multiple mailbox files, you should run the command once for each fil
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
 
-## History
 
-TODO: Write history
-
-## Credits
-
-TODO: Write credits
 
 ## License
 
