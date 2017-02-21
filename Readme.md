@@ -1,14 +1,27 @@
 # Project Name
 
-TODO: Write a project description
+This script purpose is to extract all emails from a google takeout mailbox file and write each email into a separate
+text file in an output directory
 
 ## Installation
 
-TODO: Describe the installation process
+Download and install Python3 from https://www.python.org/downloads/
+You may need to download and install git as well
 
 ## Usage
 
-TODO: Write usage instructions
+Download the script using git command
+
+c:\>git clone https://github.com/kholy/emailswork.git
+
+or simply download and extract the entire repository and place the extractmails.py file in a path of your choice
+
+run the following command
+
+c:\>c:\python36\python.exe extractmails.py c:\mymailboxed\mailbox.mbox c:\myoutput\emails1
+
+If you have multiple mailbox files, you should run the command once for each file and extract it to a separate folder
+
 
 ## Contributing
 
@@ -28,4 +41,6 @@ TODO: Write credits
 
 ## License
 
-TODO: Write license
+I take no responsibility of any damage this script might cause, use at your own responsiblity, feel free to download it, modify it, distribute it in anyway you like
+
+
